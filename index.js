@@ -1,4 +1,3 @@
-//http://127.0.0.1:3100/discordbridge?server_id=server_1&game_messages=[%22abc%22,%22def%22]
 const config = require('./config.json');
 const Discord = require('discord.js');
 const discord = new Discord.Client();
