@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "fastify": "^3.18.1",
+    "fastify-formbody": "^5.0.0"
+  }
+}

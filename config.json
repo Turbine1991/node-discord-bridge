@@ -1,0 +1,8 @@
+{
+  "discord_token": "",
+  "discord_channel_ids": {
+    "server_1": "742538712675647511"
+  },
+  "listen_path": "/discordbridge",
+  "listen_port": 3100
+}
