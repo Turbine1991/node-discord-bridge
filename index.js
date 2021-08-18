@@ -101,6 +101,9 @@ function loadFastify() {
       throw new Error(`name parameter is undefined`);
 
     instance.discord_queue.push({name: body.name || "", msg: body.body});
+    
+    const output = (body.name? `${body.name}: `: '') + body.body;
+    instance.channel.send(output);
 
     return { success: true };
   }
@@ -109,7 +112,7 @@ function loadFastify() {
   fastify.post(config.listen_path + '/send', routeSend);
   //
 
-  fastify.listen(config.listen_port, async (err, address) => {
+  fastify.listen(config.listen_port, config.listen_host || '0.0.0.0', async (err, address) => {
     if (err) throw new Error(err);
     console.log(`Listening on '${address}${config.listen_path}'`)
   })
