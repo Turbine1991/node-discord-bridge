@@ -97,13 +97,10 @@ function loadFastify() {
     if (!instance)
       throw new Error(`server_id '${server_id}' does not exist in 'config.json'`);
     
-    if (!body.name)
-      throw new Error(`name parameter is undefined`);
-    
     if (!body.body)
       throw new Error(`name parameter is undefined`);
 
-    instance.discord_queue.push({name: body.name, msg: body.body});
+    instance.discord_queue.push({name: body.name || "", msg: body.body});
 
     return { success: true };
   }
