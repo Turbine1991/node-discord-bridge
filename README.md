@@ -33,7 +33,7 @@ Go inside directory.
 ## \#5 Run
 `node index`
 
-## \#6 Bonus - Send message from POST/GET request
+## \#6 Bonus - Send message to game from external source
 ```
 // POST (recommended)
 curl -X POST -d 'server_id=REPLACE&body=Message' http://127.0.0.1:3100/discordbridge/send
