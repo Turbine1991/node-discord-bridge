@@ -36,14 +36,14 @@ const fastify = require('fastify')();
 fastify.register(require('fastify-formbody'))
 
 function loadFastify() {
-  function route(request, reply) {
+  function routeGame(request, reply) {
     const body = request.body || request.query;
     const server_id = body.server_id || '';
     
     console.log(Date.now());
     const instance = instances[server_id];
     if (!instance)
-      throw new Error(`ServerIdentifier from DiscordBridge.js '${server_id}' does not exist in 'config.json'`);
+      throw new Error(`server_id '${server_id}' does not exist in 'config.json'`);
 
     const discord_messages = instance.discord_queue;
     instance.discord_queue = [];
@@ -84,8 +84,33 @@ function loadFastify() {
     return merge_chat_return(discord_messages);
   }
 
-  fastify.get(config.listen_path, route);
-  fastify.post(config.listen_path, route);
+  fastify.get(config.listen_path, routeGame);
+  fastify.post(config.listen_path, routeGame);
+  //
+
+  function routeSend(request, reply) {
+    const body = request.body || request.query;
+    const server_id = body.server_id || '';
+    
+    console.log(Date.now());
+    const instance = instances[server_id];
+    if (!instance)
+      throw new Error(`server_id '${server_id}' does not exist in 'config.json'`);
+    
+    if (!body.name)
+      throw new Error(`name parameter is undefined`);
+    
+    if (!body.body)
+      throw new Error(`name parameter is undefined`);
+
+    instance.discord_queue.push({name: body.name, msg: body.body});
+
+    return { success: true };
+  }
+
+  fastify.get(config.listen_path + '/send', routeSend);
+  fastify.post(config.listen_path + '/send', routeSend);
+  //
 
   fastify.listen(config.listen_port, async (err, address) => {
     if (err) throw new Error(err);
