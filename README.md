@@ -32,3 +32,11 @@ Go inside directory.
 
 ## \#5 Run
 `node index`
+
+## \#6 Bonus - Send message from POST/GET request
+```
+// POST (recommended)
+curl -X POST -d 'server_id=REPLACE&body=Message' http://127.0.0.1:3100/discordbridge/send
+// GET
+curl "http://127.0.0.1:3100/discordbridge/send?server_id=REPLACE&body=Message"
+```
